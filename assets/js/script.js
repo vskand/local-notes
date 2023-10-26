@@ -18,27 +18,31 @@ addNewButton.addEventListener('click', (e) => {
 	textArea.focus()
 })
 
+textArea.addEventListener('input', () => { handleTextAreaInput() })
+
 function createNoteItem(noteData) {
 
 	const tempItemId = noteData.id || generateUniqueID()
 	const listItem = document.createElement("li")
 	const title = document.createElement("span")
 	const deleteBtn = document.createElement("button")
-	const trachIcon = document.createElement("img")
+	const trashIcon = document.createElement("img")
 
-	trachIcon.src = "assets/svg/trash-can.svg"
-	trachIcon.width = "16"
-	trachIcon.height = "16"
+	trashIcon.src = "assets/svg/trash-can.svg"
+	trashIcon.width = "16"
+	trashIcon.height = "16"
 
 	title.textContent = noteData.title || noteData
-	title.dataset.id = tempItemId
 	title.tabIndex = 0
-	deleteBtn.appendChild(trachIcon)
-	deleteBtn.classList.add = 'delete-btn'
+	title.dataset.id = tempItemId
+
+	deleteBtn.appendChild(trashIcon)
+	deleteBtn.classList.add('delete-btn')
 	deleteBtn.dataset.id = tempItemId
 
 	listItem.appendChild(title)
 	listItem.appendChild(deleteBtn)
+	listItem.dataset.id = tempItemId
 
 	notesList.appendChild(listItem);
 
@@ -48,12 +52,14 @@ function createNoteItem(noteData) {
 		content: noteData.content || ''
 	}
 
-	title.addEventListener('click', () => { openNote(tempItemId) })
+	title.addEventListener('click', (event) => {
+		openNote(tempItemId)
+		setAsActive(event.target)
+	})
 	deleteBtn.addEventListener('click', () => { deleteNote(tempItemId) })
 
 	return tempItemId
 }
-textArea.addEventListener('input', () => { handleTextAreaInput() })
 
 function openNote(noteId) {
 	if (!noteId) return
@@ -61,16 +67,26 @@ function openNote(noteId) {
 	
 	textArea.value = notes[currentNoteId]?.content || ''
 	
-	textArea.style.display = 'block'
+	textArea.classList.remove('hidden')
+	textArea.focus()
+}
+
+function setAsActive(element) {	
+	notesList.querySelector('.active')?.classList.remove('active')
+	element.closest('li').classList.add('active')
 }
 
 function deleteNote(noteId) { 
 	if (!noteId) return
+
+	if (noteId === currentNoteId) { 
+		textArea.value = ''
+	}
 	currentNoteId = noteId
 	
 	delete notes[currentNoteId]
 	localStorage.setItem("local-notes", JSON.stringify(notes))
-	populateNotesList()
+	document.querySelector(`[data-id="${noteId}"]`).classList.add('hidden')	
 }
 
 function handleTextAreaInput() {
@@ -81,7 +97,7 @@ function handleTextAreaInput() {
 
 function populateNotesList() { 
 	notesList.innerHTML = ''
-	if (notes.length == 0 || notes === null) return
+	if (Object.keys(notes).length === 0 || notes === null) return
 	
 	for (const [id, note] of Object.entries(notes)) {	
 		createNoteItem(note)
