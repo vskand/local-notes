@@ -37,6 +37,7 @@ li {
 }
 li span {
 	max-width: 250px;
+	flex: 1;
 }
 li, 
 form {
@@ -68,4 +69,15 @@ textarea {
 }
 
 
-
+@media (max-width: 650px) {
+	.container {
+		flex-direction: column;
+	}
+	.col-small {
+		width: 100%;
+		border-right: 0;
+		border-bottom: 3px solid #000;
+		max-height: 200px;
+		overflow: scroll;
+	}
+}
