@@ -1,0 +1,71 @@
+html {
+	font-family: Helvetica, Arial, sans-serif;
+}
+:root {
+	--base-padding: 0.7rem 0.4rem;
+	--base-border: 2px solid #000;
+	--base-shadow: 3px 3px 0px 1px #000;
+	--focused-shadow: 1px 2px 0px 1px #000;
+}
+input:focus,
+button:focus,
+textarea:focus {
+	outline: none;
+}
+input:focus,
+button:focus {
+	box-shadow: var(--focused-shadow);
+}
+input, 
+button {
+	height: 2rem;
+	border-radius: 0.2rem;
+	border: var(--base-border);
+	box-shadow: var(--base-shadow);
+}
+button {
+	margin-left: 5px;
+	padding: 0 0.5rem;
+	background-color: #fff;
+}
+li {
+	padding: var(--base-padding);
+	list-style-type: none;
+	border-bottom: var(--base-border);
+	font-size: 1.2rem;
+	cursor: pointer;
+}
+li span {
+	max-width: 250px;
+}
+li, 
+form {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+form {
+	border-bottom: var(--base-border);
+	padding: var(--base-padding);
+}
+textarea {
+	display: none;
+	width: 100%;
+	height: 100vh;
+	font-size: 1.2rem;
+	padding: var(--base-padding);
+}
+.container {
+	display: flex;
+	min-height: 100dvh;
+}
+.col-small {
+	width: 320px;
+	border-right: var(--base-border);
+}
+.col-large {
+	flex: 1;
+}
+
+
+

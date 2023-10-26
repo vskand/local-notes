@@ -1,0 +1,67 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+}
+
+:focus {
+	outline: 1 solid black;
+}
+
+html,
+body {
+	height: 100%;
+	/* Allow percentage-based heights in the page */
+}
+
+body {
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
+	font-family: sans-serif;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+a,
+button {
+	cursor: pointer;
+}
+
+a {
+	text-decoration: none;
+	transition: .3s;
+}
+
+input,
+textarea,
+button {
+	border: none;
+}
+
+textarea {
+	resize: none;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	/* inline by default, may leave gap on bottom for characters like p, q */
+	max-width: 100%;
+}
